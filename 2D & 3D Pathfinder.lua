@@ -1,7 +1,5 @@
---/ Scripted by MinhXD#9978
+--/ This script was originally created by Minhseu123 & MinhXD#9978
 --/ This pathfinder uses A Star algorithm. You can learn it from here https://youtu.be/-L-WgKMFuhE
---/ Feel free to use this but don't forgot to give credits
-
 
 local Config
 
@@ -167,7 +165,7 @@ function pathFinder:FindPath(startPos, endPos)
     while #openNodes > 0 do
       for increasement = 1,10 do
         if tick() - start > Config["timeout"] then
-            error("[MinhXD Pathfinder Beta]: Fail safe (Timed out)")
+            error("[MinhXD Pathfinder Beta][Fail safe]: Timed out")
         end
 
         local nodeWithLowestFCost = table.remove(openNodes, 1);
@@ -210,5 +208,31 @@ function pathFinder:FindPath(startPos, endPos)
     end
 end
 
-return pathFinder
+function pathFinder:SmoothPath(path)
+    local current = path[1]
+    local smoothedPath = {}
+    
+    table.insert(smoothedPath, current)
+    
+    for i = 1, #path do
+        if i == #path or workspace:FindPartOnRayWithIgnoreList(Ray.new(current, path[i] - current), Config["blacklistparts"]) then
+            if i == #path then i = #path + 2 end
+            for i2 = 1, math.floor(Distance(path[i - 2], current) / Config["spacing"]) do
+                table.insert(smoothedPath, current + (path[i - 2] - current).Unit * (i2 * Config["spacing"]))
+            end
+            current = path[i - 2]
+        end
+    end
 
+    for i = 1, #path do
+        path[i] = nil
+    end
+    
+    for i = 1, #smoothedPath do
+        table.insert(path, smoothedPath[i])
+    end
+
+    return smoothedPath
+end
+
+return pathFinder
