@@ -66,7 +66,7 @@ function getNeighbors(node, startPos, endPos, spacing)
                 local existingNeighbor = nil;
             
                 if Config["groundlevel"] then
-                    if not workspace:FindPartOnRayWithIgnoreList(Ray.new(vec, newVec3(0, -10, 0)), Config["blacklistparts"]) then
+                    if not workspace:FindPartOnRayWithIgnoreList(Ray.new(vec, newVec3(0, -spacing, 0)), Config["blacklistparts"]) then
                         --/ In air
                         continue;
                     end
