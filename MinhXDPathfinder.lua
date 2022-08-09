@@ -1,6 +1,14 @@
+--[[
+    Bugs found : 
+        - Finding through wall ("FindPartOnRayWithIgnoreList" will replace with ":RayCast")
+        - :SmoothPath may not smooth correctly with "groundlevel" in 3d
+        - Report bug : https://github.com/Minhseu123/Roblox/issues/
+    Next feature :
+        - Add "Jump"
+        - Add Radius
 
---/ This script was originally created by Minhseu123 & MinhXD#9978
---/ This pathfinder uses A Star algorithm. You can learn it from here https://youtu.be/-L-WgKMFuhE
+    These will be fixed & added soon
+]]
 
 local Config
 
